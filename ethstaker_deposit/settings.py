@@ -33,6 +33,8 @@ HOODI = 'hoodi'
 EPHEMERY = 'ephemery'
 GNOSIS = 'gnosis'
 CHIADO = 'chiado'
+LUKSO_MAINNET = 'lukso'
+LUKSO_TESTNET = 'lukso-testnet'
 
 # Mainnet setting
 MainnetSetting = BaseChainSetting(
@@ -86,6 +88,18 @@ ChiadoSetting = BaseChainSetting(
     MULTIPLIER=32,
     MIN_ACTIVATION_AMOUNT=1,
     MIN_DEPOSIT_AMOUNT=0.03125)
+# LUKSO Mainnet setting
+LuksoMainnetSetting = BaseChainSetting(
+    NETWORK_NAME=LUKSO_MAINNET,
+    GENESIS_FORK_VERSION=bytes.fromhex('42000001'),
+    EXIT_FORK_VERSION=bytes.fromhex('42000004'),
+    GENESIS_VALIDATORS_ROOT=bytes.fromhex('a27edd68cde5c396f499157945d062a010308ce5ed5719a6b1e12ad2a51b97e6'))
+# LUKSO Testnet setting
+LuksoTestnetSetting = BaseChainSetting(
+    NETWORK_NAME=LUKSO_TESTNET,
+    GENESIS_FORK_VERSION=bytes.fromhex('42010001'),
+    EXIT_FORK_VERSION=bytes.fromhex('42010004'),
+    GENESIS_VALIDATORS_ROOT=bytes.fromhex('341d6608917174b97bac3e45d080e8115cccb39b9d5a2ee18136600ab7336442'))
 
 
 ALL_CHAINS: Dict[str, BaseChainSetting] = {
@@ -96,6 +110,8 @@ ALL_CHAINS: Dict[str, BaseChainSetting] = {
     EPHEMERY: EphemerySetting,
     GNOSIS: GnosisSetting,
     CHIADO: ChiadoSetting,
+    LUKSO_MAINNET: LuksoMainnetSetting,
+    LUKSO_TESTNET: LuksoTestnetSetting,
 }
 
 ALL_CHAIN_KEYS: tuple[str, ...] = tuple(ALL_CHAINS.keys())
