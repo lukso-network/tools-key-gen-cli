@@ -33,7 +33,8 @@ HOODI = 'hoodi'
 EPHEMERY = 'ephemery'
 GNOSIS = 'gnosis'
 CHIADO = 'chiado'
-LUKSO_MAINNET = 'lukso'
+LUKSO = 'lukso'
+LUKSO_MAINNET = 'lukso-mainnet'
 LUKSO_TESTNET = 'lukso-testnet'
 
 # Mainnet setting
@@ -90,7 +91,7 @@ ChiadoSetting = BaseChainSetting(
     MIN_DEPOSIT_AMOUNT=0.03125)
 # LUKSO Mainnet setting
 LuksoMainnetSetting = BaseChainSetting(
-    NETWORK_NAME=LUKSO_MAINNET,
+    NETWORK_NAME=LUKSO,
     GENESIS_FORK_VERSION=bytes.fromhex('42000001'),
     EXIT_FORK_VERSION=bytes.fromhex('42000004'),
     GENESIS_VALIDATORS_ROOT=bytes.fromhex('a27edd68cde5c396f499157945d062a010308ce5ed5719a6b1e12ad2a51b97e6'))
@@ -110,6 +111,7 @@ ALL_CHAINS: Dict[str, BaseChainSetting] = {
     EPHEMERY: EphemerySetting,
     GNOSIS: GnosisSetting,
     CHIADO: ChiadoSetting,
+    LUKSO: LuksoMainnetSetting,
     LUKSO_MAINNET: LuksoMainnetSetting,
     LUKSO_TESTNET: LuksoTestnetSetting,
 }
