@@ -1,4 +1,4 @@
-# ethstaker-deposit-cli docs
+# LUKSO key-gen-cli-v2
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -9,6 +9,8 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
+
+This is a forked version of `ethstaker-deposit-cli` tool for the LUKSO Mainnet and Testnet networks.
 
 `ethstaker-deposit-cli` is a tool for creating [EIP-2335 format](https://eips.ethereum.org/EIPS/eip-2335) BLS12-381 keystores and a corresponding `deposit_data*.json` file for [Ethereum Staking Launchpad](https://github.com/ethereum/staking-launchpad) or the [Gnosis Beacon Chain deposit UI](https://github.com/gnosischain/gbc-deposit-ui/). One can also provide a keystore file to generate a `signed_exit_transaction*.json` file to be broadcast at a later date to exit a validator.
 
