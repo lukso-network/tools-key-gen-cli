@@ -35,7 +35,7 @@ from ethstaker_deposit.utils.intl import (
     load_text,
 )
 from ethstaker_deposit.settings import (
-    MAINNET,
+    LUKSO,
     ALL_CHAIN_KEYS,
     get_chain_setting,
     BaseChainSetting,
@@ -56,9 +56,9 @@ FUNC_NAME = 'generate_bls_to_execution_change_keystore'
             ALL_CHAIN_KEYS
         ),
         prompt_if=prompt_if_other_is_none('devnet_chain_setting'),
-        default=MAINNET,
+        default=LUKSO,
     ),
-    default=MAINNET,
+    default=LUKSO,
     help=lambda: load_text(['arg_chain', 'help'], func=FUNC_NAME),
     param_decls='--chain',
     prompt=False,  # the callback handles the prompt
