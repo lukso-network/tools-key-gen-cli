@@ -8,7 +8,7 @@ from ethstaker_deposit.exceptions import ValidationError
 from ethstaker_deposit.utils.exit_transaction import exit_transaction_generation, export_exit_transaction_json
 from ethstaker_deposit.key_handling.keystore import Keystore
 from ethstaker_deposit.settings import (
-    MAINNET,
+    LUKSO,
     ALL_CHAIN_KEYS,
     get_chain_setting,
     BaseChainSetting,
@@ -48,9 +48,9 @@ FUNC_NAME = 'exit_transaction_keystore'
             ALL_CHAIN_KEYS
         ),
         prompt_if=prompt_if_other_is_none('devnet_chain_setting'),
-        default=MAINNET,
+        default=LUKSO,
     ),
-    default=MAINNET,
+    default=LUKSO,
     help=lambda: load_text(['arg_exit_transaction_keystore_chain', 'help'], func=FUNC_NAME),
     param_decls='--chain',
     prompt=False,  # the callback handles the prompt

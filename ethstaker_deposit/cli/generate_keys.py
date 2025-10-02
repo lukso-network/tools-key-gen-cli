@@ -42,7 +42,7 @@ from ethstaker_deposit.utils.intl import (
 )
 from ethstaker_deposit.utils.terminal import clear_terminal
 from ethstaker_deposit.settings import (
-    MAINNET,
+    LUKSO,
     ALL_CHAIN_KEYS,
     get_chain_setting,
     BaseChainSetting,
@@ -78,9 +78,9 @@ def generate_keys_arguments_decorator(function: Callable[..., Any]) -> Callable[
                     ALL_CHAIN_KEYS
                 ),
                 prompt_if=prompt_if_other_is_none('devnet_chain_setting'),
-                default=MAINNET,
+                default=LUKSO,
             ),
-            default=MAINNET,
+            default=LUKSO,
             help=lambda: load_text(['chain', 'help'], func='generate_keys_arguments_decorator'),
             param_decls='--chain',
             prompt=False,  # the callback handles the prompt

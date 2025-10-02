@@ -13,7 +13,7 @@ from ethstaker_deposit.cli.generate_keys import get_default_amount
 from ethstaker_deposit.key_handling.keystore import Keystore
 from ethstaker_deposit.settings import (
     DEPOSIT_CLI_VERSION,
-    MAINNET,
+    LUKSO,
     ALL_CHAIN_KEYS,
     get_chain_setting,
     BaseChainSetting,
@@ -67,9 +67,9 @@ FUNC_NAME = 'partial_deposit'
             ALL_CHAIN_KEYS
         ),
         prompt_if=prompt_if_other_is_none('devnet_chain_setting'),
-        default=MAINNET,
+        default=LUKSO,
     ),
-    default=MAINNET,
+    default=LUKSO,
     help=lambda: load_text(['arg_partial_deposit_chain', 'help'], func=FUNC_NAME),
     param_decls='--chain',
     prompt=False,  # the callback handles the prompt
