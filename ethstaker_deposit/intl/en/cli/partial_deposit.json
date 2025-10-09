@@ -9,7 +9,7 @@
       },
       "arg_partial_deposit_amount": {
           "help": "The amount to deposit to this validator in ether denomination. Must be at least 1 ether and can not have greater precision than 1 gwei. Default is 32 ether.",
-          "prompt": "Please enter the amount you wish to deposit to this validator. Must be at least 1 ether and can not have greater precision than 1 gwei. 32 is required to activate a new validator"
+          "prompt": "Please enter the amount you wish to deposit to this validator. Must be at least {min_deposit} and can not have greater precision than 1 gwei. {activation_amount} is required to activate a new validator"
       },
       "arg_partial_deposit_keystore": {
           "help": "The keystore file associated with the validator you wish to sign with and deposit to.",
@@ -26,7 +26,8 @@
       "arg_withdrawal_address": {
           "help": "The withdrawal address of the validator. If you wish to create a validator with 0x00 credentials use the new-mnemonic or existing-mnemonic command.",
           "confirm": "Repeat the withdrawal address for confirmation.",
-          "prompt": "Please enter the withdrawal address. If you wish to create a validator with 0x00 credentials use the new-mnemonic or existing-mnemonic command."
+          "prompt": "Please enter the withdrawal address. If you wish to create a validator with 0x00 credentials use the new-mnemonic or existing-mnemonic command.",
+          "mismatch": "Error: the two entered addresses do not match. Please type again."
       },
       "arg_compounding": {
           "help": "Generates compounding validators with 0x02 withdrawal credentials for a 2048 ETH maximum effective balance or generate regular validators with 0x01 withdrawal credentials for a 32 ETH maximum effective balance. This feature is only supported on networks that have undergone the Pectra fork.",

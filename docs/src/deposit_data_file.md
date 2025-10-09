@@ -28,7 +28,7 @@ Each deposit from the list will contain this structure:
 - **deposit_data_root**: The deposit data root value to be passed to the deposit function call.
 - **fork_version**: The fork version of the network that this deposit file was created for.
 - **network_name**: The network name of the network that this deposit file was created for.
-- **deposit_cli_version**: The tool version used to create this file. We are currently faking this value to work around [an issue](https://github.com/eth-educators/ethstaker-deposit-cli/issues/216) with the Launchpad.
+- **deposit_cli_version**: The tool version used to create this file. We are currently faking this value to work around [an issue](https://github.com/ethstaker/ethstaker-deposit-cli/issues/216) with the Launchpad.
 
 ## Example
 ```JSON
@@ -41,8 +41,8 @@ Each deposit from the list will contain this structure:
     "deposit_message_root":"f9bdb1e800b8f9f0db98c77271745e3c6140f18bf420543bda84fa92c393ddc7",
     "deposit_data_root":"7cda08cd57c303f8af720b10a0852408bc31e015cb552f0029fc1024b8a1d615",
     "fork_version":"01017000",
-    "network_name":"holesky",
-    "deposit_cli_version":"2.7.0"
+    "network_name":"hoodi",
+    "deposit_cli_version":"1.2.2"
   },
   {
     "pubkey":"86ee0b826d7d5262324ace2fba4ed5f09a1cbef80552e3d945279f19bc4118a98e9a93257eb4c7731ccc10c19835d24f",
@@ -52,8 +52,8 @@ Each deposit from the list will contain this structure:
     "deposit_message_root":"99dbb2392fef277c15e710ca0ead058c024adce15f9e8f369bbaea939c0009ed",
     "deposit_data_root":"0fcb16fdb536b00a037a3ccde67187d21abfb726d677e40709ae6910d44377a5",
     "fork_version":"01017000",
-    "network_name":"holesky",
-    "deposit_cli_version":"2.7.0"
+    "network_name":"hoodi",
+    "deposit_cli_version":"1.2.2"
   }
 ]
 ```

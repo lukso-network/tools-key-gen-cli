@@ -1,7 +1,6 @@
 import asyncio
 import json
 import os
-import sys
 
 import pytest
 import inspect
@@ -876,8 +875,6 @@ def test_pbkdf2_new_mnemonic(monkeypatch) -> None:
     clean_key_folder(scrypt_folder_path)
 
 
-@pytest.mark.skipif(sys.version_info[:2] == (3, 9), reason=(
-    "asyncio subprocess is broken in different ways on 3.9 with https://github.com/python/cpython/issues/88050"))
 @pytest.mark.asyncio
 async def test_script_bls_withdrawal() -> None:
     # Prepare folder
@@ -973,8 +970,6 @@ async def test_script_bls_withdrawal() -> None:
     clean_key_folder(my_folder_path)
 
 
-@pytest.mark.skipif(sys.version_info[:2] == (3, 9), reason=(
-    "asyncio subprocess is broken in different ways on 3.9 with https://github.com/python/cpython/issues/88050"))
 @pytest.mark.asyncio
 async def test_script_abbreviated_mnemonic() -> None:
     # Prepare folder
@@ -1075,10 +1070,10 @@ def test_new_mnemonic_custom_testnet(monkeypatch) -> None:
         os.mkdir(my_folder_path)
 
     devnet_chain = {
-        "network_name": "holeskycopy",
-        "genesis_fork_version": "01017000",
+        "network_name": "hoodicopy",
+        "genesis_fork_version": "10000910",
         "exit_fork_version": "04017000",
-        "genesis_validator_root": "9143aa7c615a7f7115e2b6aac319c03529df8242ae705fba9df39b79c59fa8b1"
+        "genesis_validator_root": "212f13fc4df078b6cb7db228f1c8307566dcecf900867401a92023d7ba99cb5f"
     }
 
     devnet_chain_setting = json.dumps(devnet_chain)

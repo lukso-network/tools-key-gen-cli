@@ -3,7 +3,7 @@
 <div class="warning">
 This command is associated with the a proposed solution to update withdrawal credentials for those who are missing their mnemonic. At this point this has not been approved or implemented and there is no guarantee credentials will be modified in the future.
 
-The project is located [here](https://github.com/eth-educators/update-credentials-without-mnemonic) if you would like to learn more.
+The project is located [here](https://github.com/ethstaker/update-credentials-without-mnemonic) if you would like to learn more.
 </div>
 
 ## Description
@@ -11,7 +11,7 @@ Signs a withdrawal credential update message using the provided keystore. This s
 
 ## Optional Arguments
 
-- **`--chain`**: The chain to use for generating the deposit data. Options are: 'mainnet', 'sepolia', 'holesky', 'hoodi', 'ephemery', 'gnosis', 'chiado', 'lukso' or 'lukso-testnet'.
+- **`--chain`**: The chain to use for generating the deposit data. Options are: 'mainnet', 'sepolia', 'hoodi', 'ephemery', 'gnosis', 'chiado', 'lukso' or 'lukso-testnet'.
 
 - **`--keystore`**: The keystore file associating with the validator you wish to sign with. This keystore file should match the provided validator index.
 
