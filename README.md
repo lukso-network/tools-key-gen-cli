@@ -24,20 +24,14 @@ You can read [the security assessment report by Trail of Bits](https://github.co
 ## Canonical Deposit Contract and Launchpad
 
 Ethstaker confirms the canonical Ethereum staking deposit contract addresses and launchpad URLs.
-Please be sure that your ETH is deposited only to this deposit contract address, depending on chain.
+Please be sure that your LYX is deposited only to this deposit contract address, depending on chain.
 
-Depositing to the wrong address **will** lose you your ETH.
+Depositing to the wrong address **will** lose you your LYX.
 
-- Ethereum mainnet
-  - Deposit address: [0x00000000219ab540356cBB839Cbe05303d7705Fa](https://etherscan.io/address/0x00000000219ab540356cBB839Cbe05303d7705Fa)
-  - [Launchpad](https://launchpad.ethereum.org/)
-- Ethereum Hoodi testnet
-  - Deposit address: [0x00000000219ab540356cBB839Cbe05303d7705Fa](https://hoodi.etherscan.io/address/0x00000000219ab540356cBB839Cbe05303d7705Fa)
-  - [Launchpad](https://hoodi.launchpad.ethereum.org/)
+- LUKSO Mainnet
+  - Deposit address: [0xCAfe00000000000000000000000000000000CAfe](https://explorer.execution.mainnet.lukso.network/address/0xCAfe00000000000000000000000000000000CAfe)
+  - [Launchpad](https://deposit.mainnet.lukso.network)
 
-- Gnosis mainnet
-  - Deposit address: [0x0B98057eA310F4d31F2a452B414647007d1645d9](https://gnosis.blockscout.com/address/0x0B98057eA310F4d31F2a452B414647007d1645d9)
-  - [Gnosis Beacon Chain deposit UI](https://deposit.gnosischain.com/)
-- Chiado testnet
-  - Deposit address: [0xb97036A26259B7147018913bD58a774cf91acf25](https://gnosis-chiado.blockscout.com/address/0xb97036A26259B7147018913bD58a774cf91acf25)
-  - [Gnosis Beacon Chain deposit UI](https://deposit.gnosischain.com/)
+- LUKSO Testnet
+  - Deposit address: [0xCAfe00000000000000000000000000000000CAfe](https://explorer.execution.testnet.lukso.network/address/0xCAfe00000000000000000000000000000000CAfe)
+  - [Launchpad](https://deposit.testnet.lukso.network)
