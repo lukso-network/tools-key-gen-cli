@@ -35,3 +35,6 @@ Depositing to the wrong address **will** lose you your LYX.
 - LUKSO Testnet
   - Deposit address: [0xCAfe00000000000000000000000000000000CAfe](https://explorer.execution.testnet.lukso.network/address/0xCAfe00000000000000000000000000000000CAfe)
   - [Launchpad](https://deposit.testnet.lukso.network)
+
+## Installation
+All available releases and builds are available on [release](https://github.com/lukso-network/tools-key-gen-cli/releases) page.
