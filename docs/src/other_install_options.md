@@ -6,7 +6,7 @@
 
 1. **Python version checking**
 
-    Ensure you are using Python version >= Python3.9:
+    Ensure you are using Python version >= Python3.10:
 
     ```sh
     python3 -V
@@ -54,7 +54,7 @@
 
 1. **Python version checking**
 
-    Ensure you are using Python version >= Python3.9:
+    Ensure you are using Python version >= Python3.10:
 
     ```sh
     python3 -V
@@ -112,7 +112,7 @@
     Run the following command to pull the latest docker image published on the Github repository:
 
     ```sh
-    docker pull ghcr.io/eth-educators/ethstaker-deposit-cli:latest
+    docker pull ghcr.io/ethstaker/ethstaker-deposit-cli:latest
     ```
 
 2. **Create keys and `deposit_data-*.json`**
@@ -120,19 +120,19 @@
     Run the following command to enter the interactive CLI:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/eth-educators/ethstaker-deposit-cli:latest
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/ethstaker/ethstaker-deposit-cli:latest
     ```
 
     You can also run the tool with optional arguments:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/eth-educators/ethstaker-deposit-cli:latest new-mnemonic --num_validators=<NUM_VALIDATORS> --mnemonic_language=english
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/ethstaker/ethstaker-deposit-cli:latest new-mnemonic --num_validators=<NUM_VALIDATORS> --mnemonic_language=english
     ```
 
-    Example for 1 validator on the [Holesky testnet](https://holesky.launchpad.ethereum.org/) using english:
+    Example for 1 validator on the [Hoodi testnet](https://hoodi.launchpad.ethereum.org/) using english:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/eth-educators/ethstaker-deposit-cli:latest new-mnemonic --num_validators=1 --mnemonic_language=english --chain=holesky
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ghcr.io/ethstaker/ethstaker-deposit-cli:latest new-mnemonic --num_validators=1 --mnemonic_language=english --chain=hoodi
     ```
 
 ### Option 4. Use local docker image
@@ -150,19 +150,19 @@
     Run the following command to enter the interactive CLI:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys eth-educators/ethstaker-deposit-cli
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ethstaker/ethstaker-deposit-cli
     ```
 
     You can also run the tool with optional arguments:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys eth-educators/ethstaker-deposit-cli new-mnemonic --num_validators=<NUM_VALIDATORS> --mnemonic_language=english
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ethstaker/ethstaker-deposit-cli new-mnemonic --num_validators=<NUM_VALIDATORS> --mnemonic_language=english
     ```
 
-    Example for 1 validator on the [Holesky testnet](https://holesky.launchpad.ethereum.org/) using english:
+    Example for 1 validator on the [Hoodi testnet](https://hoodi.launchpad.ethereum.org/) using english:
 
     ```sh
-    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys eth-educators/ethstaker-deposit-cli new-mnemonic --num_validators=1 --mnemonic_language=english --chain=holesky
+    docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ethstaker/ethstaker-deposit-cli new-mnemonic --num_validators=1 --mnemonic_language=english --chain=hoodi
     ```
 
 ----
@@ -222,7 +222,7 @@
 
 1. **Python version checking**
 
-    Ensure you are using Python version >= Python3.9 (Assume that you've installed Python 3 as the main Python):
+    Ensure you are using Python version >= Python3.10 (Assume that you've installed Python 3 as the main Python):
 
     ```cmd
     python -V

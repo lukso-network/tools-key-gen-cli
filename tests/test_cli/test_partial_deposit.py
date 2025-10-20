@@ -57,7 +57,7 @@ def test_partial_deposit(amount: str) -> None:
 
     runner = CliRunner()
     inputs = ['english', 'mainnet', password, amount, withdrawal_address, withdrawal_address, '']
-    data = '\n'.join(inputs)
+    data = '\n'.join(inputs) + '\n'
     arguments = [
         '--ignore_connectivity',
         'partial-deposit',
@@ -83,6 +83,74 @@ def test_partial_deposit(amount: str) -> None:
         )
         result_amount = deposit['amount']
         assert result_amount == int(Decimal(amount) * ETH2GWEI)
+
+    if os.name == 'posix':
+        assert get_permissions(partial_deposit_folder, deposit_files[0]) == '0o400'
+
+    clean_partial_deposit_folder(my_folder_path)
+
+
+@pytest.mark.parametrize(
+    'amount',
+    [
+        ("32"),
+        ("1"),
+        ("0.03125"),
+        ("64"),
+    ]
+)
+def test_gnosis_partial_deposit(amount: str) -> None:
+    my_folder_path = os.path.join(os.getcwd(), 'TESTING_TEMP_FOLDER')
+    partial_deposit_folder = os.path.join(my_folder_path, DEFAULT_PARTIAL_DEPOSIT_FOLDER_NAME)
+    clean_partial_deposit_folder(my_folder_path)
+    if not os.path.exists(my_folder_path):
+        os.mkdir(my_folder_path)
+    if not os.path.exists(partial_deposit_folder):
+        os.mkdir(partial_deposit_folder)
+
+    chain_settings = get_chain_setting('gnosis')
+    password = "MyPasswordIs"
+    withdrawal_address = "0xcd60A5f152724480c3a95E4Ff4dacEEf4074854d"
+    mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+
+    credential = Credential(mnemonic=mnemonic,
+                            mnemonic_password="",
+                            index=0,
+                            amount=32000000000,
+                            chain_setting=chain_settings,
+                            hex_withdrawal_address=to_normalized_address(withdrawal_address),
+                            compounding=False)
+
+    keystore_file_folder = credential.save_signing_keystore(password, partial_deposit_folder, time.time())
+
+    runner = CliRunner()
+    inputs = ['english', 'gnosis', password, amount, withdrawal_address, withdrawal_address, '']
+    data = '\n'.join(inputs) + '\n'
+    arguments = [
+        '--ignore_connectivity',
+        'partial-deposit',
+        '--keystore', keystore_file_folder,
+        '--output_folder', my_folder_path,
+    ]
+    result = runner.invoke(cli, arguments, input=data)
+    assert result.exit_code == 0
+
+    _, _, folder_files = next(os.walk(partial_deposit_folder))
+
+    deposit_files = [deposit_file for deposit_file in folder_files if deposit_file.startswith('deposit')]
+
+    assert len(deposit_files) == 1
+
+    deposit_file = deposit_files[0]
+    with open(partial_deposit_folder + '/' + deposit_file, 'r', encoding='utf-8') as f:
+        deposits_dict = json.load(f)
+    for deposit in deposits_dict:
+        withdrawal_credentials = bytes.fromhex(deposit['withdrawal_credentials'])
+        assert withdrawal_credentials == (
+            EXECUTION_ADDRESS_WITHDRAWAL_PREFIX + b'\x00' * 11 + decode_hex(withdrawal_address)
+        )
+        result_amount = deposit['amount']
+        assert result_amount == int(Decimal(amount) * chain_settings.MULTIPLIER * ETH2GWEI)
 
     if os.name == 'posix':
         assert get_permissions(partial_deposit_folder, deposit_files[0]) == '0o400'
@@ -149,6 +217,65 @@ def test_partial_deposit_compounding() -> None:
     clean_partial_deposit_folder(my_folder_path)
 
 
+def test_gnosis_partial_deposit_compounding() -> None:
+    my_folder_path = os.path.join(os.getcwd(), 'TESTING_TEMP_FOLDER')
+    partial_deposit_folder = os.path.join(my_folder_path, DEFAULT_PARTIAL_DEPOSIT_FOLDER_NAME)
+    clean_partial_deposit_folder(my_folder_path)
+    if not os.path.exists(my_folder_path):
+        os.mkdir(my_folder_path)
+    if not os.path.exists(partial_deposit_folder):
+        os.mkdir(partial_deposit_folder)
+
+    chain_settings = get_chain_setting('gnosis')
+    password = "MyPasswordIs"
+    withdrawal_address = "0xcd60A5f152724480c3a95E4Ff4dacEEf4074854d"
+    mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+
+    credential = Credential(mnemonic=mnemonic,
+                            mnemonic_password="",
+                            index=0,
+                            amount=32000000000,
+                            chain_setting=chain_settings,
+                            hex_withdrawal_address=to_normalized_address(withdrawal_address),
+                            compounding=False)
+
+    keystore_file_folder = credential.save_signing_keystore(password, partial_deposit_folder, time.time())
+
+    runner = CliRunner()
+    inputs = ['english', 'gnosis', password, '1', withdrawal_address, withdrawal_address, 'yes']
+    data = '\n'.join(inputs)
+    arguments = [
+        '--ignore_connectivity',
+        'partial-deposit',
+        '--keystore', keystore_file_folder,
+        '--output_folder', my_folder_path,
+    ]
+    result = runner.invoke(cli, arguments, input=data)
+    assert result.exit_code == 0
+
+    _, _, folder_files = next(os.walk(partial_deposit_folder))
+
+    deposit_files = [deposit_file for deposit_file in folder_files if deposit_file.startswith('deposit')]
+
+    assert len(deposit_files) == 1
+
+    deposit_file = deposit_files[0]
+    with open(partial_deposit_folder + '/' + deposit_file, 'r', encoding='utf-8') as f:
+        deposits_dict = json.load(f)
+    for deposit in deposits_dict:
+        withdrawal_credentials = bytes.fromhex(deposit['withdrawal_credentials'])
+        assert withdrawal_credentials == (
+            COMPOUNDING_WITHDRAWAL_PREFIX + b'\x00' * 11 + decode_hex(withdrawal_address)
+        )
+        amount = deposit['amount']
+        assert amount == chain_settings.MIN_ACTIVATION_AMOUNT * chain_settings.MULTIPLIER * ETH2GWEI
+
+    if os.name == 'posix':
+        assert get_permissions(partial_deposit_folder, deposit_files[0]) == '0o400'
+
+    clean_partial_deposit_folder(my_folder_path)
+
+
 def test_partial_deposit_matches_existing_mnemonic_deposit() -> None:
     my_folder_path = os.path.join(os.getcwd(), 'TESTING_TEMP_FOLDER')
     validator_key_folder = os.path.join(my_folder_path, DEFAULT_VALIDATOR_KEYS_FOLDER_NAME)
@@ -174,7 +301,8 @@ def test_partial_deposit_matches_existing_mnemonic_deposit() -> None:
         '--withdrawal_address', f"{withdrawal_address}",
         '--folder', my_folder_path,
     ]
-    result = runner.invoke(cli, arguments)
+    data = '\n'
+    result = runner.invoke(cli, arguments, input=data)
     assert result.exit_code == 0
 
     _, _, validator_key_files = next(os.walk(validator_key_folder))
@@ -188,7 +316,7 @@ def test_partial_deposit_matches_existing_mnemonic_deposit() -> None:
     key_file_location = os.path.join(validator_key_folder, key_files[0])
 
     inputs = ['english', 'mainnet', password, "32", withdrawal_address, withdrawal_address, '']
-    data = '\n'.join(inputs)
+    data = '\n'.join(inputs) + '\n'
     arguments = [
         '--ignore_connectivity',
         'partial-deposit',
@@ -244,7 +372,8 @@ def test_partial_deposit_does_not_match_if_amount_differs() -> None:
         '--withdrawal_address', f"{withdrawal_address}",
         '--folder', my_folder_path,
     ]
-    result = runner.invoke(cli, arguments)
+    data = '\n'
+    result = runner.invoke(cli, arguments, input=data)
     assert result.exit_code == 0
 
     _, _, validator_key_files = next(os.walk(validator_key_folder))
@@ -258,7 +387,7 @@ def test_partial_deposit_does_not_match_if_amount_differs() -> None:
     key_file_location = os.path.join(validator_key_folder, key_files[0])
 
     inputs = ['english', 'mainnet', password, "33", withdrawal_address, withdrawal_address, '']
-    data = '\n'.join(inputs)
+    data = '\n'.join(inputs) + '\n'
     arguments = [
         '--ignore_connectivity',
         'partial-deposit',
@@ -317,10 +446,10 @@ def test_partial_deposit_custom_network(amount: str) -> None:
         os.mkdir(partial_deposit_folder)
 
     devnet_chain = {
-        "network_name": "holeskycopy",
-        "genesis_fork_version": "01017000",
+        "network_name": "hoodicopy",
+        "genesis_fork_version": "10000910",
         "exit_fork_version": "04017000",
-        "genesis_validator_root": "9143aa7c615a7f7115e2b6aac319c03529df8242ae705fba9df39b79c59fa8b1"
+        "genesis_validator_root": "212f13fc4df078b6cb7db228f1c8307566dcecf900867401a92023d7ba99cb5f"
     }
     devnet_chain_setting = json.dumps(devnet_chain)
 
@@ -340,7 +469,7 @@ def test_partial_deposit_custom_network(amount: str) -> None:
 
     runner = CliRunner()
     inputs = ['english', password, amount, withdrawal_address, withdrawal_address, '']
-    data = '\n'.join(inputs)
+    data = '\n'.join(inputs) + '\n'
     arguments = [
         '--ignore_connectivity',
         'partial-deposit',
@@ -373,10 +502,10 @@ def test_invalid_custom_network_json() -> None:
         os.mkdir(partial_deposit_folder)
 
     devnet_chain = {
-        "network_name": "holeskycopy",
-        "genesis_fork_version": "01017000",
+        "network_name": "hoodicopy",
+        "genesis_fork_version": "10000910",
         "exit_fork_version": "04017000",
-        "genesis_validator_root": "9143aa7c615a7f7115e2b6aac319c03529df8242ae705fba9df39b79c59fa8b1"
+        "genesis_validator_root": "212f13fc4df078b6cb7db228f1c8307566dcecf900867401a92023d7ba99cb5f"
     }
     devnet_chain_setting = 'abcd'
 
